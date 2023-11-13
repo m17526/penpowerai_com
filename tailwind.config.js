@@ -3,7 +3,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
-  content: ['src/**/*.{ts,tsx}'],
+  content: ['src/**/*.{ts,tsx}'],  
   theme: {
     container: {
       center: true,
@@ -17,12 +17,10 @@ module.exports = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
+        background: '#f5f5f5',
+        // background: 'hsl(var(--background))',
+        foreground: '#f5f5f5',
+        primary: '#52c41a',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
@@ -57,6 +55,15 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
+    //       fontSize: {
+    //   sm: '0.8rem',
+    //   base: '1rem',
+    //   xl: '1.25rem',
+    //   '2xl': '1.563rem',
+    //   '3xl': '1.953rem',
+    //   '4xl': '2.441rem',
+    //   '5xl': '3.052rem',
+    // },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
@@ -73,5 +80,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require("@tailwindcss/typography"),
+    require("tailwind-scrollbar"),
+  ],
 };

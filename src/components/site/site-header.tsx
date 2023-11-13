@@ -1,50 +1,24 @@
 import Link from 'next/link';
 
-import { siteConfig } from '@/config/site';
-import { Icons } from '@/components/icons';
-import { buttonVariants } from '@/components/plate-ui/button';
-import { MainNav } from '@/components/site/main-nav';
-import { ThemeToggle } from '@/components/site/theme-toggle';
+import { Logo } from '@/components/site/logo';
+import NavigationMenu from './navigation-menu';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
+import DropdownMmenu from './dropdown-menu';
 
-export function SiteHeader() {
+export async function SiteHeader() {
+
+  const session  = await getServerSession(options);
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <MainNav items={siteConfig.mainNav} />
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-1">
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: 'sm',
-                  variant: 'ghost',
-                })}
-              >
-                <Icons.gitHub className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </div>
-            </Link>
-            <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: 'sm',
-                  variant: 'ghost',
-                })}
-              >
-                <Icons.twitter className="h-5 w-5 fill-current" />
-                <span className="sr-only">Twitter</span>
-              </div>
-            </Link>
-            <ThemeToggle />
-          </nav>
+      <div className="container flex h-16 items-center space-x-4 sm:justify-between">
+        <Logo />
+        {/* <NavigationMenu session={session} /> */}
+
+        <div className="flex flex-1 w-1/2 items-center justify-between space-x-4">
+        <NavigationMenu session={session} />
+            {session && <DropdownMmenu user={session.user} />}
         </div>
       </div>
     </header>
